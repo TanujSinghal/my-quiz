@@ -1,0 +1,45 @@
+.App {
+  text-align: center;
+}
+
+
+.header{
+  background: grey;
+  height: 50px;
+  font-size: 35px;
+  color: white;
+}
+.start{
+  margin: 30vh;
+  padding: 10px;
+}
+
+input {
+  margin: 10px;
+}
+
+.footer{
+  clear: both;
+}
+.footer button{
+  margin: 20px;
+  padding: 10px;
+}
+.error{
+  color: red;
+}
+
+.summary{
+  margin: 5%
+}
+table{
+  margin: 1% 30%;
+  width: 40%;
+  border-spacing: 0px;
+}
+table thead tr {
+  font-weight: bold;
+}
+td{
+  border: 1px solid #000;
+}
