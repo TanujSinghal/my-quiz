@@ -1,4 +1,4 @@
-import {React, useState } from 'react';
+import {React, useState, useEffect } from 'react';
 import Data from '../Data';
 import { useNavigate } from "react-router-dom";
 
@@ -7,8 +7,10 @@ export default function Quiz(prop) {
   const [questionIndex, setQuestionIndex] = useState(0);
 
   let questionnaire = Data();
+  let timeoutDuration = 20;
   const [answer, setAnswer] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [timeLeft, setTimeLeft]  = useState(timeoutDuration);
 
   const onChangeValue = function(e) {
     setAnswer(e.target.value);
@@ -33,18 +35,30 @@ export default function Quiz(prop) {
   const skipQuestion = function(){
     prop.onAnswerSubmit({questionIndex, answer});
     if (questionIndex < questionnaire.length - 1) {
+      setTimeLeft(timeoutDuration);
       setSubmitted(false);
       setQuestionIndex(questionIndex + 1);
     }
     else {
-      navigate("/summary");
+      setTimeout(() => {
+        navigate("/summary");
+      }, 0); 
     }
   }
 
-const doSomething = () => {/*to eliminate warning*/}
+  const doSomething = () => {/*to eliminate warning*/}
+
+  useEffect(()=>{
+    const timer =
+    timeLeft > 0 && setInterval(() => setTimeLeft(timeLeft - 1), 1000);
+    return () => clearInterval(timer);
+  }, [timeLeft]);
+
+  if(timeLeft == 0) skipQuestion();
 
   return (
     <div>
+      <p>Time Remaing: { timeLeft } second(s)</p>
       <p>Q.{questionIndex+1}) {questionnaire[questionIndex].question}</p>
       <div onChange={onChangeValue}>
         { questionnaire[questionIndex].options.map((element, index) => 

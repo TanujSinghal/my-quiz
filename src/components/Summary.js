@@ -14,12 +14,19 @@ export default function Summary(prop) {
                 <tr>
                     <td>Correct Answer</td>
                     <td>Your Answer</td>
+                    <td>Status</td>
                 </tr>
             </thead>
             <tbody>
                 {questionnaire.map((element, index)=>
                     <tr key={index}>
-                        <td >{element.options[element.answerIndex]}</td><td >{element.options[prop.yourAnswer[index]]}</td>
+                        <td>{element.options[element.answerIndex]}</td>
+                        <td>{element.options[prop.yourAnswer[index]]}</td>
+                        <td>{prop.yourAnswer[index] 
+                            ? (element.answerIndex == prop.yourAnswer[index] ? 'Correct' : 'Wrong')
+                            : 'No Answer'
+                            }
+                        </td>
                     </tr>
                 )}
             </tbody>
